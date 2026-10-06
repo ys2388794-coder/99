@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لجرجورتي 💗</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&family=Lemonada:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff4d8d; --rose:#ff8fb7; --soft:#ffe3ee; --purple:#8a4dff; --dark:#2a1233; --gold:#ffc94d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cairo','Segoe UI',Tahoma,sans-serif;
+  color:#fff;background:linear-gradient(160deg,#2a1233,#5a1a58 45%,#a1245f);
+  background-attachment:fixed;overflow-x:hidden;
+}
+h1,h2{font-family:'Lemonada','Cairo',sans-serif}
+section{min-height:100vh;padding:70px 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;z-index:2}
+h2{font-size:clamp(1.6rem,5vw,2.6rem);margin-bottom:26px;text-shadow:0 4px 20px rgba(255,77,141,.6)}
+p.lead{font-size:1.15rem;max-width:560px;line-height:1.9;opacity:.95}
+
+/* floating hearts bg */
+#hearts{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.heart{position:absolute;bottom:-40px;animation:floatUp linear forwards;opacity:.8}
+@keyframes floatUp{to{transform:translateY(-115vh) rotate(40deg);opacity:0}}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+
+/* intro overlay */
+#intro{position:fixed;inset:0;z-index:100;background:radial-gradient(circle,#7a1f6a,#220d2c);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center;padding:20px;transition:opacity .8s,visibility .8s}
+#intro.hide{opacity:0;visibility:hidden}
+#intro .big{font-size:5rem;animation:beat 1.1s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.25)}60%{transform:scale(1.05)}}
+
+.btn{
+  border:none;cursor:pointer;font-family:inherit;font-weight:800;font-size:1.15rem;color:#fff;
+  padding:14px 34px;border-radius:50px;background:linear-gradient(135deg,var(--pink),var(--purple));
+  box-shadow:0 8px 28px rgba(255,77,141,.55);transition:transform .2s,box-shadow .2s;
+}
+.btn:hover{transform:scale(1.08)}
+.btn:active{transform:scale(.95)}
+.btn.ghost{background:rgba(255,255,255,.15);box-shadow:none;border:2px solid rgba(255,255,255,.4)}
+
+/* hero */
+.hero h1{font-size:clamp(2.4rem,9vw,5rem);line-height:1.3;background:linear-gradient(90deg,#fff,var(--rose),#fff);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200%;animation:shine 4s linear infinite}
+@keyframes shine{to{background-position:200%}}
+.typed{min-height:2.2em;font-size:1.2rem;margin:18px 0 30px;color:var(--soft)}
+.scroll-hint{margin-top:34px;animation:bob 1.6s infinite;font-size:2rem}
+@keyframes bob{50%{transform:translateY(12px)}}
+
+/* counter */
+.counter{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+.cbox{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:16px 18px;min-width:84px}
+.cbox b{display:block;font-size:2.2rem;color:var(--gold);font-family:'Lemonada'}
+.cbox span{font-size:.9rem;opacity:.85}
+
+/* polaroid cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:30px;width:100%;max-width:1000px}
+.polaroid{background:#fff;color:#4a1a3a;padding:12px 12px 18px;border-radius:8px;box-shadow:0 14px 35px rgba(0,0,0,.45);transform:rotate(var(--r,-2deg));transition:transform .35s;text-align:center}
+.polaroid:nth-child(even){--r:2.5deg}
+.polaroid:hover{transform:rotate(0) scale(1.06) translateY(-6px)}
+.polaroid .ph{width:100%;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:linear-gradient(135deg,var(--rose),var(--purple));display:flex;align-items:center;justify-content:center;font-size:4rem}
+.polaroid .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.polaroid h3{margin:12px 0 4px;font-size:1.25rem}
+.polaroid p{font-size:.95rem;line-height:1.6;color:#7a3a62}
+.polaroid a{display:inline-block;margin-top:10px;background:var(--pink);color:#fff;text-decoration:none;padding:7px 18px;border-radius:30px;font-weight:700;font-size:.9rem}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(50px);transition:all .9s}
+.reveal.in{opacity:1;transform:none}
+
+/* apology cards */
+.sorry-list{display:flex;flex-direction:column;gap:14px;max-width:560px;width:100%}
+.sorry{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.3);border-radius:18px;padding:16px 20px;cursor:pointer;text-align:right;font-size:1.05rem;transition:.3s}
+.sorry:hover{background:rgba(255,255,255,.22);transform:translateX(-6px)}
+.sorry .more{max-height:0;overflow:hidden;transition:max-height .5s,margin .5s;color:var(--soft);font-size:.98rem;line-height:1.8}
+.sorry.open .more{max-height:200px;margin-top:10px}
+
+/* question */
+#qArea{position:relative;min-height:240px;width:100%;display:flex;flex-direction:column;align-items:center;gap:24px}
+#qMsg{font-size:1.15rem;min-height:2.2em;color:var(--gold)}
+.btnrow{display:flex;gap:26px;align-items:center;justify-content:center;flex-wrap:wrap}
+#noBtn{position:relative;transition:left .25s,top .25s,transform .25s}
+#noBtn.run{position:fixed;z-index:60}
+
+/* rewards */
+#rewards{display:none;flex-direction:column;align-items:center;gap:14px;margin-top:10px;width:100%}
+.reward{background:linear-gradient(135deg,rgba(255,201,77,.25),rgba(255,77,141,.3));border:2px solid var(--gold);border-radius:20px;padding:14px 22px;font-size:1.1rem;max-width:480px;width:100%;transform:scale(0);animation:pop .6s forwards}
+@keyframes pop{60%{transform:scale(1.12)}100%{transform:scale(1)}}
+.final{font-size:1.5rem;margin-top:24px;font-weight:800;color:var(--gold);opacity:0;transition:opacity 1.5s;line-height:1.9}
+.final.show{opacity:1}
+
+footer{padding:30px;text-align:center;opacity:.7;position:relative;z-index:2}
+</style>
+</head>
+<body>
+
+<div id="hearts"></div>
+<canvas id="fx"></canvas>
+
+<!-- شاشة البداية (مهمة عشان الصوت يشتغل) -->
+<div id="intro">
+  <div class="big">💗</div>
+  <h1 style="font-size:2rem">في حاجة جاهزة ليكي يا جرجورتي</h1>
+  <p class="lead">افتحيها وانتي مبسوطة 🥹</p>
+  <button class="btn" id="startBtn">افتحي 💌</button>
+</div>
+
+<!-- 1. الهيرو -->
+<section class="hero" id="top">
+  <h1>جرجورتي 💗</h1>
+  <div class="typed" id="typed"></div>
+  <p class="lead">الموقع ده معمول مخصوص ليكي… وأنا عارف إني مقصّر، فخدي وقتك واقري للآخر 🌷</p>
+  <div class="scroll-hint">⬇️</div>
+</section>
+
+<!-- 2. بقالنا قد ايه -->
+<section>
+  <div class="reveal">
+    <h2>⏳ إحنا نعرف بعض بقالنا…</h2>
+    <div class="counter" id="counter"></div>
+    <p class="lead" id="sinceText"></p>
+  </div>
+</section>
+
+<!-- 3. عن هاجر -->
+<section>
+  <div class="reveal">
+    <h2>🌸 جرجورتي بتاعتي</h2>
+    <p class="lead" style="margin:0 auto 30px">من أسيوط، طولها 165 سم بس قلبها أطول من كده بكتير 🥰 بتحب الغنا والحضن، ومش بتقول لحد غير "يا كوتي يا بوتي" 😭💗</p>
+  </div>
+  <div class="grid">
+    <div class="polaroid reveal"><div class="ph" data-img="hagar" data-emoji="👑"></div><h3>هاجر / جرجورتي</h3><p>أحلى بنت من أسيوط 👑</p></div>
+    <div class="polaroid reveal"><div class="ph" data-img="singing" data-emoji="🎤"></div><h3>صوتها</h3><p>بتحب تغني، وصوتها بيشغل الدنيا عندي 🎶</p></div>
+    <div class="polaroid reveal"><div class="ph" data-img="hugs" data-emoji="🤗"></div><h3>الأحضان</h3><p>أكتر حاجة بتحبها، وأنا عليا حضن طويل جدًا 🫂</p></div>
+    <div class="polaroid reveal"><div class="ph" data-img="cooking" data-emoji="🍳"></div><h3>سارة ومريم</h3><p>عشان كده بتتأخر، أصل المطبخ والترويق مش بيخلصوا 😂</p></div>
+  </div>
+</section>
+
+<!-- 4. الفنانين -->
+<section>
+  <div class="reveal">
+    <h2>🎧 الزوق بتاعها</h2>
+    <p class="lead" style="margin:0 auto 30px">الناس اللي بتغنيهم وبتسمعهم طول اليوم 🎤</p>
+  </div>
+  <div class="grid">
+    <div class="polaroid reveal"><div class="ph" data-img="mousasam" data-emoji="🎵"></div><h3>موسى سام</h3></div>
+    <div class="polaroid reveal"><div class="ph" data-img="pablo" data-emoji="🎶"></div><h3>بابلو</h3></div>
+    <div class="polaroid reveal"><div class="ph" data-img="dama" data-emoji="🎙️"></div><h3>داما</h3></div>
+    <div class="polaroid reveal"><div class="ph" data-img="abyusif" data-emoji="💿"></div><h3>أبيوسف</h3>
+      <p>وأغنيتها المفضلة "رضا" 💗</p>
+      <a href="https://www.youtube.com/results?search_query=ابيوسف+رضا" target="_blank" rel="noopener">▶ اسمعي رضا</a>
+    </div>
+  </div>
+</section>
+
+<!-- 5. طوكيو ريفنجرز -->
+<section>
+  <div class="reveal">
+    <h2>⚔️ مسلسلنا</h2>
+    <div class="grid" style="max-width:340px;margin:0 auto">
+      <div class="polaroid"><div class="ph" data-img="tokyo" data-emoji="🏍️"></div><h3>Tokyo Revengers</h3><p>أكتر مسلسل بنحبه إحنا الاتنين 🔥</p>
+        <a href="https://www.youtube.com/results?search_query=Tokyo+Revengers" target="_blank" rel="noopener">▶ طوكيو ريفنجرز</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. الاعتذار -->
+<section>
+  <div class="reveal">
+    <h2>🥺 عندي اعتذار ليكي</h2>
+    <p class="lead" style="margin:0 auto 24px">دوسي على كل واحدة 👇</p>
+    <div class="sorry-list">
+      <div class="sorry">آسف إني بتأخر في الرد عليكي على إنستا 📱<div class="more">إنتي أهم من أي حاجة على موبايلي، ومن النهاردة هحاول أرد بسرعة وماخليكيش مستنية.</div></div>
+      <div class="sorry">آسف إني مش بردّ على الريلز اللي بتبعتيها 🎬<div class="more">كل ريل بتبعتيه معناه إنك فكرتي فيا، وأنا لازم أقدّر ده وأفرح بيه وأرد عليه.</div></div>
+      <div class="sorry">آسف إني مش بسمع الريكوردات كلها 🎙️<div class="more">صوتك أحلى حاجة، وأي ريكورد منك هسمعه للآخر وأرد عليه.</div></div>
+      <div class="sorry">آسف إني مش بعتلك ريكوردات وفيديو نوتس 🎥<div class="more">وعد هبعتلك، وهتسمعي صوتي وأنا بقولك صباح الخير وليلة سعيدة.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. صالحيني -->
+<section>
+  <div class="reveal">
+    <h2>🤝 ممكن تصالحيني؟</h2>
+    <p class="lead" style="margin:0 auto 26px">أوعدك أتحسن، ومش هخليكي تحسي إنك لوحدك تاني 💗</p>
+    <button class="btn" id="forgiveBtn">صالحتك يا كوتي 🥹</button>
+    <p class="lead" id="forgiveMsg" style="margin-top:20px;color:var(--gold);font-weight:800"></p>
+  </div>
+</section>
+
+<!-- 8. السؤال -->
+<section id="questionSec">
+  <h2>❓ سؤال مهم جدًا</h2>
+  <div id="qArea">
+    <p class="lead" style="font-size:1.6rem;font-weight:800">بتحبيني يا جرجورتي؟ 🥹</p>
+    <div id="qMsg"></div>
+    <div class="btnrow">
+      <button class="btn" id="yesBtn">أيوه بحبك 💗</button>
+      <button class="btn ghost" id="noBtn">لا 💔</button>
+    </div>
+  </div>
+
+  <div id="rewards"></div>
+  <div class="final" id="final"></div>
+</section>
+
+<footer>اتعمل بحب لجرجورتي 💗 — من كوتي بوتي</footer>
+
+<script>
+/* ========= إعدادات سهلة تعدّل فيها ========= */
+const START_DATE = new Date('2026-09-24T00:00:00'); // اليوم اللي اتعرفتوا فيه (غيّر السنة لو لازم)
+
+/* حط الصور الحقيقية هنا (جوه فولدر اسمه images جنب الملف ده)
+   لو الصورة مش موجودة هيظهر مكانها شكل مزخرف بدل ما الموقع يبوظ */
+const IMAGES = {
+  hagar:   'images/hagar.jpg',
+  singing: 'images/singing.jpg',
+  hugs:    'images/hugs.jpg',
+  cooking: 'images/sisters.jpg',
+  mousasam:'images/mousa-sam.jpg',
+  pablo:   'images/pablo.jpg',
+  dama:    'images/dama.jpg',
+  abyusif: 'images/abyusif.jpg',
+  tokyo:   'images/tokyo-revengers.jpg'
+};
+
+/* ========= الصوت (من غير ملفات) ========= */
+let AC;
+function tone(freq,dur=.15,type='sine',vol=.15,delay=0){
+  if(!AC) return;
+  const o=AC.createOscillator(), g=AC.createGain();
+  o.type=type;o.frequency.value=freq;
+  g.gain.setValueAtTime(vol,AC.currentTime+delay);
+  g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+delay+dur);
+  o.connect(g);g.connect(AC.destination);
+  o.start(AC.currentTime+delay);o.stop(AC.currentTime+delay+dur);
+}
+const sfx={
+  pop(){tone(520,.08,'square',.08);tone(880,.12,'triangle',.1,.07)},
+  win(){[523,659,784,1047].forEach((f,i)=>tone(f,.25,'triangle',.18,i*.12))},
+  boom(){tone(120,.35,'sawtooth',.15);tone(300,.2,'square',.08,.05)},
+  sparkle(){[1200,1500,1800].forEach((f,i)=>tone(f,.08,'sine',.07,i*.05))}
+};
+
+/* ========= الصور ========= */
+document.querySelectorAll('.ph').forEach(box=>{
+  const src=IMAGES[box.dataset.img], emoji=box.dataset.emoji;
+  if(!src){box.textContent=emoji;return;}
+  const img=new Image();
+  img.onload=()=>{box.textContent='';box.appendChild(img)};
+  img.onerror=()=>{box.textContent=emoji};
+  img.alt='';
+  img.src=src;
+});
+
+/* ========= قلوب طايرة ========= */
+const heartsEl=document.getElementById('hearts');
+const hs=['💗','💖','💕','🌸','✨','💞'];
+setInterval(()=>{
+  const h=document.createElement('div');
+  h.className='heart';h.textContent=hs[Math.floor(Math.random()*hs.length)];
+  h.style.left=Math.random()*100+'vw';
+  h.style.fontSize=(14+Math.random()*26)+'px';
+  h.style.animationDuration=(6+Math.random()*7)+'s';
+  heartsEl.appendChild(h);
+  setTimeout(()=>h.remove(),14000);
+},450);
+
+/* ========= كتابة تلقائية ========= */
+const lines=['من كوتي بوتي لجرجورتي 💌','المسافة بينا كبيرة… بس قلبي جنبك 🫂','اقري للآخر وانتي مبسوطة 🌷'];
+function typeLines(){
+  const el=document.getElementById('typed');let l=0,c=0,del=false;
+  (function tick(){
+    const t=lines[l];
+    el.textContent=t.slice(0,c);
+    if(!del&&c<t.length){c++;setTimeout(tick,70)}
+    else if(!del){del=true;setTimeout(tick,1600)}
+    else if(c>0){c--;setTimeout(tick,30)}
+    else{del=false;l=(l+1)%lines.length;setTimeout(tick,300)}
+  })();
+}
+
+/* ========= العداد ========= */
+function updateCounter(){
+  const now=new Date();
+  let diff=Math.max(0,now-START_DATE);
+  const d=Math.floor(diff/864e5);diff%=864e5;
+  const h=Math.floor(diff/36e5);diff%=36e5;
+  const m=Math.floor(diff/6e4);diff%=6e4;
+  const s=Math.floor(diff/1000);
+  document.getElementById('counter').innerHTML=
+   [[d,'يوم'],[h,'ساعة'],[m,'دقيقة'],[s,'ثانية']].map(x=>`<div class="cbox"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+  document.getElementById('sinceText').textContent=
+   'من يوم 24 / 9 وإحنا بنعرف بعض، والعدّاد بيزيد وحبي ليكي بيزيد معاه 💗';
+}
+setInterval(updateCounter,1000);updateCounter();
+
+/* ========= ظهور تدريجي ========= */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ========= أكورديون الاعتذار ========= */
+document.querySelectorAll('.sorry').forEach(s=>s.addEventListener('click',()=>{
+  s.classList.toggle('open');sfx.sparkle();
+}));
+
+/* ========= الألعاب النارية والكونفيتي ========= */
+const cv=document.getElementById('fx'),ctx=cv.getContext('2d');
+function resize(){cv.width=innerWidth;cv.height=innerHeight}
+resize();addEventListener('resize',resize);
+let parts=[];
+function burst(x,y,n=70){
+  const cols=['#ff4d8d','#ffc94d','#8a4dff','#fff','#ff8fb7','#4dd2ff'];
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2,sp=2+Math.random()*6;
+    parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:70+Math.random()*30,c:cols[Math.floor(Math.random()*cols.length)],s:2+Math.random()*3});
+  }
+}
+function fireworks(times=8){
+  for(let i=0;i<times;i++)setTimeout(()=>{
+    burst(innerWidth*(.15+Math.random()*.7),innerHeight*(.15+Math.random()*.45));sfx.boom();
+  },i*350);
+}
+function confetti(){
+  for(let i=0;i<120;i++)parts.push({x:Math.random()*innerWidth,y:-20,vx:(Math.random()-.5)*3,vy:2+Math.random()*4,life:160,c:['#ff4d8d','#ffc94d','#8a4dff','#fff'][i%4],s:4+Math.random()*4,g:.03});
+}
+(function loop(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  parts=parts.filter(p=>p.life>0);
+  parts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.vy+=(p.g??.08);p.life--;
+    ctx.globalAlpha=Math.min(1,p.life/40);ctx.fillStyle=p.c;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,7);ctx.fill();
+  });
+  ctx.globalAlpha=1;requestAnimationFrame(loop);
+})();
+
+/* ========= زرار البداية ========= */
+document.getElementById('startBtn').onclick=()=>{
+  AC=new (window.AudioContext||window.webkitAudioContext)();
+  sfx.win();
+  document.getElementById('intro').classList.add('hide');
+  typeLines();fireworks(4);
+};
+
+/* ========= المصالحة ========= */
+const forgiveMsgs=['يا قلبي 🥹','هو انتي بتحبيني كده؟','أنا أسعد واحد في الدنيا 💗'];
+let fi=0;
+document.getElementById('forgiveBtn').onclick=()=>{
+  sfx.win();fireworks(5);confetti();
+  document.getElementById('forgiveMsg').textContent=forgiveMsgs[Math.min(fi++,forgiveMsgs.length-1)];
+};
+
+/* ========= سؤال بتحبيني (زرار "لا" بيهرب) ========= */
+const noBtn=document.getElementById('noBtn'),yesBtn=document.getElementById('yesBtn'),qMsg=document.getElementById('qMsg');
+let tries=0;
+const noTexts=['لا 💔','متأكدة؟ 🥺','فكري تاني 😢','بجد؟! 😭','طب ليه؟ 💔','هعيط والله 😭','ماتعمليش كده 🥹','خلاص وقّفي 🙏','ماتقدريش 😏'];
+const msgs=['😏 ماتقدريش تدوسي عليه','حاولي تاني!','الزرار ده زعلان منك','أنا قلتلك ماينفعش 😂','مفيش فايدة يا جرجورتي 💗'];
+function dodge(e){
+  if(e&&e.preventDefault)e.preventDefault();
+  tries++;sfx.pop();
+  noBtn.classList.add('run');
+  const w=noBtn.offsetWidth,h=noBtn.offsetHeight;
+  noBtn.style.left=Math.random()*(innerWidth-w-20)+10+'px';
+  noBtn.style.top=Math.random()*(innerHeight-h-20)+10+'px';
+  noBtn.textContent=noTexts[Math.min(tries,noTexts.length-1)];
+  noBtn.style.transform=`scale(${Math.max(.4,1-tries*.07)})`;
+  yesBtn.style.transform=`scale(${Math.min(1.8,1+tries*.1)})`;
+  qMsg.textContent=msgs[tries%msgs.length];
+}
+noBtn.addEventListener('mouseenter',dodge);
+noBtn.addEventListener('touchstart',dodge,{passive:false});
+noBtn.addEventListener('click',dodge);
+
+yesBtn.onclick=()=>{
+  sfx.win();fireworks(10);confetti();
+  noBtn.style.display='none';
+  document.querySelector('.btnrow').style.display='none';
+  qMsg.textContent='عارف إنك بتحبيني 🥹💗';
+  const box=document.getElementById('rewards');box.style.display='flex';
+  const rewards=[
+    '🏆 جايزة: شطورة يا جرجورتي!',
+    '🤗 هدية: حضن طويل جدًا (لما نتقابل إن شاء الله)',
+    '🌹 مكافأة: وعد إني أرد عليكي بسرعة',
+    '🎤 جايزة: مستني أسمعك بتغني أغنية رضا',
+    '💎 لقب: أحلى جرجورتي في الدنيا كلها'
+  ];
+  rewards.forEach((t,i)=>setTimeout(()=>{
+    const d=document.createElement('div');d.className='reward';d.textContent=t;
+    box.appendChild(d);sfx.sparkle();burst(innerWidth/2,innerHeight/2,40);
+  },i*1100+500));
+  setTimeout(()=>{
+    const f=document.getElementById('final');
+    f.innerHTML='شطورة يا جرجورتي 💗🥹<br><br>هتوحشيني بقا… أنا هنام كمان شوية 🌙😴<br>تصبحي على خير يا قلبي ✨';
+    f.classList.add('show');sfx.win();fireworks(6);
+  },rewards.length*1100+1500);
+};
+</script>
+</body>
+</html>
